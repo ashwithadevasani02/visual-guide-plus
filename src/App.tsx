@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import {
   LayoutDashboard, Target, BookOpen, FileText, Mic, DoorOpen, Users, Briefcase,
@@ -10,16 +9,6 @@ import {
   PhoneCall, ChevronDown,
 } from "lucide-react";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Accredian — Career Acceleration Platform" },
-      { name: "description", content: "Strategic skills, mentor matchmaking, alumni referrals, and AI-modeled career projections — all in one place." },
-    ],
-  }),
-  component: Index,
-});
-
 type ScreenId = "s1" | "s2" | "s3" | "s4" | "s5";
 
 const NAV: { id: ScreenId; label: string }[] = [
@@ -30,7 +19,7 @@ const NAV: { id: ScreenId; label: string }[] = [
   { id: "s5", label: "Future Self" },
 ];
 
-function Index() {
+export default function App() {
   const [screen, setScreen] = useState<ScreenId>("s1");
   const [hours, setHours] = useState(2);
 
@@ -44,13 +33,11 @@ function Index() {
 
   return (
     <div className="app-shell">
-      {/* Utility bar */}
       <div className="utility-bar">
         Navigate your ideal career path with tailored expert advice
         <a href="#"><PhoneCall size={13} style={{ display: "inline", verticalAlign: "-2px", marginRight: 4 }} />Contact Expert</a>
       </div>
 
-      {/* Header */}
       <header className="header">
         <div className="header-inner">
           <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
@@ -89,7 +76,6 @@ function Index() {
   );
 }
 
-/* ============ Dashboard ============ */
 function Dashboard({ go }: { go: (s: ScreenId) => void }) {
   return (
     <>
@@ -191,7 +177,6 @@ function Dashboard({ go }: { go: (s: ScreenId) => void }) {
   );
 }
 
-/* ============ Career Room ============ */
 function CareerRoom({ go }: { go: (s: ScreenId) => void }) {
   return (
     <>
@@ -319,7 +304,6 @@ function CareerRoom({ go }: { go: (s: ScreenId) => void }) {
   );
 }
 
-/* ============ Matchmaking ============ */
 function Matchmaking({ go }: { go: (s: ScreenId) => void }) {
   const matches = [
     { name: "Ankit Sharma", sub: "Data analyst aspirant · IIT Delhi", av: "AN", avBg: "#ECEAFE", avC: "#3C3489", pct: 92, pills: [["pill-blue", "Remote"], ["pill-purple", "2 yrs exp"]], help: "SQL partner", offer: "Power BI guidance" },
@@ -419,7 +403,6 @@ function Matchmaking({ go }: { go: (s: ScreenId) => void }) {
   );
 }
 
-/* ============ Referrals ============ */
 function Referrals({ go }: { go: (s: ScreenId) => void }) {
   return (
     <>
@@ -474,8 +457,8 @@ function Referrals({ go }: { go: (s: ScreenId) => void }) {
         <div className="sec-head" style={{ marginBottom: 0, marginTop: 8 }}><Users /> Available alumni at Google</div>
 
         {[
-          { av: "AR", avBg: "#FBEFD7", avC: "#6B3D08", name: "Arjun Mehta", role: "Sr. Data Analyst · Google · Batch 2021", placed: 12, rate: 85, badges: [["badge-gold", <Trophy size={11} />, "Top contributor"], ["badge-purple", <Star size={11} />, "Placement hero"]] },
-          { av: "NR", avBg: "#DBF3EB", avC: "#085041", name: "Neha Rao", role: "Product Analyst · Google · Batch 2022", placed: 7, rate: 71, badges: [["badge-silver", <Award size={11} />, "Mentor"]] },
+          { av: "AR", avBg: "#FBEFD7", avC: "#6B3D08", name: "Arjun Mehta", role: "Sr. Data Analyst · Google · Batch 2021", placed: 12, rate: 85, badges: [["badge-gold", <Trophy size={11} />, "Top contributor"], ["badge-purple", <Star size={11} />, "Placement hero"]] as const },
+          { av: "NR", avBg: "#DBF3EB", avC: "#085041", name: "Neha Rao", role: "Product Analyst · Google · Batch 2022", placed: 7, rate: 71, badges: [["badge-silver", <Award size={11} />, "Mentor"]] as const },
         ].map((a) => (
           <div key={a.name} className="alumni-card">
             <div className="alumni-top">
@@ -520,7 +503,6 @@ function Referrals({ go }: { go: (s: ScreenId) => void }) {
   );
 }
 
-/* ============ Future Self ============ */
 function FutureSelf({ go, hours, setHours, proj }: { go: (s: ScreenId) => void; hours: number; setHours: (n: number) => void; proj: { pkg: string; conf: string; time: string } }) {
   return (
     <>
